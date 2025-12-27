@@ -20,7 +20,6 @@ import LayeredAvatarRenderer from '../features/avatar/LayeredAvatarRenderer';
 import '../styles/AvatarSetupWizard.css';
 
 const AvatarSetupWizard = () => {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [step, setStep] = useState(1); // 1=base, 2=hair, 3=eyes, 4=eyebrows, 5=mouth, 6=clothing (optional)
   const [saving, setSaving] = useState(false);
@@ -32,8 +31,8 @@ const AvatarSetupWizard = () => {
   const [selectedEyes, setSelectedEyes] = useState<string>('eyes_1_1');
   const [selectedEyebrows, setSelectedEyebrows] = useState<string>('eyebrows_1');
   const [selectedMouth, setSelectedMouth] = useState<string>('mouth_1');
-  const [selectedTop, setSelectedTop] = useState<string>('top_1_1'); // Default top
-  const [selectedBottom, setSelectedBottom] = useState<string>('bottom_1_1'); // Default bottom
+  const [selectedTop, setSelectedTop] = useState<string | null>('top_1_1'); // Default top
+  const [selectedBottom, setSelectedBottom] = useState<string | null>('bottom_1_1'); // Default bottom
 
   // No longer using dropdown selectors - all items are selected directly from grid
 
