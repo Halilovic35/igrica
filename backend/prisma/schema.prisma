@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  displayName  String   @map("display_name")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  avatar        Avatar?
+  stats         UserStats?
+  userItems     UserItem[]
+  levelProgress UserLevelProgress[]
+
+  @@map("users")
+}
+
+model Avatar {
+  id               String   @id @default(uuid())
+  userId           String   @unique @map("user_id")
+  profileImageUrl  String?  @map("profile_image_url") // User's face image
+  baseBodyId       String?  @map("base_body_id") // Selected body ID (nullable for migration)
+  
+  // Equipped items by slot (JSON field for flexibility)
+  equippedItems   Json?    @default("{}") @map("equipped_items") // { slot: itemId }
+  
+  // Legacy fields (kept for backward compatibility)
+  avatarImageUrl   String?  @map("avatar_image_url")
+  bodyColor        String   @default("#FFB6C1") @map("body_color")
+  equippedOutfitId String?  @map("equipped_outfit_id")
+  equippedEffectIds String[] @default([]) @map("equipped_effect_ids")
+  equippedEmoteIds String[]  @default([]) @map("equipped_emote_ids")
+  
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("avatars")
+}
+
+model Item {
+  id         String   @id @default(uuid())
+  type       ItemType
+  name       String
+  priceHearts Int     @map("price_hearts")
+  assetPath  String?  @map("asset_path") // Full path to asset (nullable for migration)
+  rarity     String   @default("common") // common, rare, epic, legendary
+  slot       String?  // Which slot this item goes in (for clarity)
+  
+  // Legacy fields
+  assetKey   String?  @map("asset_key")
+  spriteKey  String?  @map("sprite_key")
+  
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  userItems UserItem[]
+
+  @@map("items")
+}
+
+enum ItemType {
+  BODY
+  HEAD_FRAME
+  HEAD_ACCESSORY
+  OUTFIT
+  HAND_LEFT
+  HAND_RIGHT
+  FEET
+  BACK
+  AURA
+  PET
+  // Legacy
+  EFFECT
+  EMOTE
+}
+
+model UserItem {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  itemId    String   @map("item_id")
+  ownedAt   DateTime @default(now()) @map("owned_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, itemId])
+  @@map("user_items")
+}
+
+model Level {
+  id                   String   @id @default(uuid())
+  code                 String   @unique
+  name                 String
+  orderIndex           Int      @map("order_index")
+  heartsRewardDefault  Int      @map("hearts_reward_default")
+  createdAt            DateTime @default(now()) @map("created_at")
+
+  userProgress UserLevelProgress[]
+
+  @@map("levels")
+}
+
+model UserLevelProgress {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  levelId    String   @map("level_id")
+  completed  Boolean  @default(false)
+  bestScore  Int?     @map("best_score")
+  completedAt DateTime? @map("completed_at")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level Level @relation(fields: [levelId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, levelId])
+  @@map("user_level_progress")
+}
+
+model UserStats {
+  id                 String   @id @default(uuid())
+  userId             String   @unique @map("user_id")
+  heartsBalance      Int      @default(0) @map("hearts_balance")
+  totalHeartsEarned  Int      @default(0) @map("total_hearts_earned")
+  totalLevelsCompleted Int    @default(0) @map("total_levels_completed")
+  lastLoginAt        DateTime? @map("last_login_at")
+  lastDailyBonusAt   DateTime? @map("last_daily_bonus_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_stats")
+}
+

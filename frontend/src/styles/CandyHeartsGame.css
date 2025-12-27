@@ -1,0 +1,415 @@
+.game-container {
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.game-content-wrapper {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 30px;
+  width: 100%;
+  max-width: 1400px;
+  align-items: start;
+}
+
+.game-instructions {
+  flex: 0 0 320px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: white;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.game-instructions h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #ff7bc6;
+}
+
+.instructions-content {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.instructions-content p {
+  margin-bottom: 15px;
+}
+
+.instructions-content strong {
+  color: #ff7bc6;
+  font-weight: 600;
+}
+
+.instructions-content ol {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.instructions-content li {
+  margin-bottom: 8px;
+}
+
+.instructions-goals {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.instructions-goals ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.instructions-goals li {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border-left: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.instructions-goals li.goal-completed {
+  background: rgba(76, 175, 80, 0.2);
+  border-left-color: #4caf50;
+  color: #4caf50;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+}
+
+.game-header h1 {
+  font-size: 36px;
+  margin: 20px 0 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-stats {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.goals-stat {
+  padding: 12px 15px;
+}
+
+.goals-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+}
+
+.goal-type {
+  font-size: 16px;
+  padding: 5px 12px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.goal-type.goal-met {
+  background: rgba(76, 175, 80, 0.3);
+  border-color: rgba(76, 175, 80, 0.6);
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.goal-check {
+  flex-shrink: 0;
+}
+
+.goal-heart {
+  flex-shrink: 0;
+}
+
+.goal-red { color: #ff1744; }
+.goal-blue { color: #2196f3; }
+.goal-yellow { color: #ffd700; }
+.goal-pink { color: #ff6b9d; }
+.goal-purple { color: #9c27b0; }
+
+.game-board-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 20px 20px 0;
+  width: 100%;
+  justify-self: start;
+}
+
+.game-board-container.shaking {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.game-board {
+  position: relative;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden; /* spriječi da srca izlaze van */
+  box-sizing: content-box; /* zadrži dimenzije bazirane na width/height props */
+}
+
+.game-tile {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 3px solid transparent;
+  overflow: hidden;
+  will-change: transform;
+  box-sizing: border-box;
+}
+
+.game-tile:hover:not(.clearing) {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.game-tile.selected {
+  border-color: white;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.game-tile.selected::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 3px solid white;
+  border-radius: 12px;
+  animation: pulseBorder 1s ease-in-out infinite;
+}
+
+@keyframes pulseBorder {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.game-tile.swapping {
+  z-index: 5;
+}
+
+.game-tile.clearing {
+  z-index: 1;
+}
+
+.heart-image {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s;
+}
+
+.game-tile:hover .heart-image {
+  transform: scale(1.1);
+}
+
+.completion-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.completion-message {
+  background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideInUp 0.5s ease-out;
+}
+
+.completion-message.lose {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.completion-message h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.completion-message p {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.retry-button {
+  background: white;
+  color: #c44569;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.completion-message.lose .retry-button {
+  color: #764ba2;
+}
+
+.retry-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .game-content-wrapper {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .game-instructions {
+    width: 100%;
+    max-width: 600px;
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-header h1 {
+    font-size: 28px;
+  }
+
+  .game-tile {
+    width: 45px;
+    height: 45px;
+  }
+
+  .stat {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .goal-type {
+    font-size: 14px;
+    padding: 4px 10px;
+  }
+
+  .completion-message {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+
+  .completion-message h2 {
+    font-size: 22px;
+  }
+
+  .game-instructions {
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  .game-instructions h2 {
+    font-size: 20px;
+  }
+
+  .instructions-content {
+    font-size: 14px;
+  }
+}
+

@@ -1,0 +1,30 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+*.pem
+coverage/
+.nyc_output/
+
+# Prisma
+backend/prisma/migrations/
+
+# Uploads
+backend/uploads/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Railway
+.railway/
+
+# Build artifacts
+*.tsbuildinfo
+

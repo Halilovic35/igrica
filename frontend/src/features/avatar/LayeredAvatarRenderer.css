@@ -1,0 +1,43 @@
+.layered-avatar-container {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-layer {
+  position: absolute;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* Breathing animation */
+.breathing-animation {
+  animation: avatarBreathe 1.5s ease-in-out infinite;
+}
+
+@keyframes avatarBreathe {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Size variants */
+.avatar-small {
+  width: 80px;
+  height: 120px;
+}
+
+.avatar-medium {
+  width: 150px;
+  height: 225px;
+}
+
+.avatar-large {
+  width: 250px;
+  height: 375px;
+}

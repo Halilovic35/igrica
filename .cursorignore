@@ -1,0 +1,13 @@
+# Cursor ignore file
+# User has granted full access - allowing .env files
+
+# Allow .env files (explicitly allowing access)
+# By commenting these out, .env files are accessible
+
+# Only ignore large/binary files for performance
+node_modules/
+dist/
+build/
+coverage/
+*.log
+

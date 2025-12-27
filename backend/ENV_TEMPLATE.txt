@@ -1,0 +1,6 @@
+DATABASE_URL="postgresql://postgres:[YOUR_PASSWORD]@db.tjijfyywqtmtuaxqcqvj.supabase.co:5432/postgres"
+JWT_SECRET="lanci-loveverse-secret-key-2024-change-in-production"
+PORT=3001
+FRONTEND_URL="http://localhost:5173"
+NODE_ENV="development"
+

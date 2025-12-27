@@ -1,0 +1,158 @@
+.admin-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  color: white;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 32px;
+  flex: 1;
+  text-align: center;
+}
+
+.back-button,
+.refresh-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+
+.back-button:hover,
+.refresh-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.error-message {
+  background: rgba(255, 0, 0, 0.2);
+  border: 2px solid rgba(255, 0, 0, 0.5);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.users-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.users-header {
+  margin-bottom: 20px;
+}
+
+.users-count {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.users-list {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.users-table thead {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.users-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.users-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.users-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.user-id {
+  font-family: monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+.user-email {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.user-date {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.no-users {
+  text-align: center;
+  padding: 40px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 40px;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+  }
+
+  .admin-header h1 {
+    font-size: 24px;
+  }
+
+  .users-table {
+    font-size: 14px;
+  }
+
+  .users-table th,
+  .users-table td {
+    padding: 8px;
+  }
+}
