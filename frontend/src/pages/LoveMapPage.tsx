@@ -100,8 +100,10 @@ const LoveMapPage = () => {
       const response = await api.get('/levels');
       console.log('Fetched levels:', response.data);
       setLevels(response.data);
+      return response.data;
     } catch (error) {
       console.error('Failed to fetch levels:', error);
+      return [];
     } finally {
       setLoading(false);
     }

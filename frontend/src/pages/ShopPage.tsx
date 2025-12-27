@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import api from '../services/api';
 import { AvatarSlot, getItemById } from '../features/avatar/AvatarAssets';
 import MetalIcon, { MetalIcons } from '../components/metal-ui/MetalIcon';
