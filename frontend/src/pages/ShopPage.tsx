@@ -19,7 +19,6 @@ interface ShopItem {
 }
 
 const ShopPage = () => {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [items, setItems] = useState<ShopItem[]>([]);
   const [hearts, setHearts] = useState(0);

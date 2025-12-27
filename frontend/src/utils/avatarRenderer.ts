@@ -37,7 +37,7 @@ export async function loadAvatarImage(): Promise<HTMLImageElement | null> {
       return null;
     }
     
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
@@ -61,7 +61,7 @@ export function drawAvatar(
   x: number,
   y: number,
   size: number = 40,
-  facingRight: boolean = true
+  _facingRight: boolean = true
 ) {
   const avatar = cachedAvatar;
   if (!avatar) return;
